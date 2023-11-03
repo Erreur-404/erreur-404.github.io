@@ -3,7 +3,7 @@ title: "Javascwipt Fwamework - Hackfest 2023"
 date: 2023-11-03T15:30:28-04:00
 author: "Erreur 404"
 cover: ""
-dscription: "A Reverse Engineering challenge involving multiple layers of JavaScript Obusfaction, presented at Hackfest 2023"
+description: "A Reverse Engineering challenge involving multiple layers of JavaScript Obusfaction, presented at Hackfest 2023"
 showFullContent: false
 readingTime: false
 hideComments: false
@@ -11,7 +11,7 @@ color: ""
 ---
 This challenge was a somewhat typical Javascript obfuscation challenge given at Hackfest 2023, which takes place in the vicinity of Quebec City once a year. I had never completed one before, so I was happy to tackle this one, hoping I could reach the final flag. 🚩
 
-# Getting the Code
+## Getting the Code
 
 When I first opened the challenge on CTFd, I was greeted with the following:
 
@@ -32,7 +32,7 @@ Ooof. 2.6 MB is quite the file for an empty script. There had to be something I 
 
 The file was filled with spaces and tabs. I first wondered if it was possible to obfuscate Javascript in such a way, but knowing the Hackfest I was able to guess right away what I was dealing with: binary. As a matter of fact, a simple Cyberchef manipulation changing spaces into 1s and tabs into 0s and converting binary to ascii provided me with a more standard, yet still obfuscated, Javascript file.
 
-# JSFuck
+## JSFuck
 
 ![Figure 3. Code composed of 6 characters](/images/javascwipt_fwamework/javascwipt_fwamework_3.png)
 
@@ -61,7 +61,7 @@ A quick analysis shows that the program simply inflates the long hex string and 
 
 ![Figure 4. Decoded JSFuck](/images/javascwipt_fwamework/javascwipt_fwamework_4.png)
 
-# Unusual Characters
+## Unusual Characters
 
 This new code is not nearly as readable as the previous one, but I managed to get throught it. First, I used my browser's builtin "pretty print" tool to separate lines of code, which gave the following:
 
@@ -81,7 +81,7 @@ Now you must know that `dictionary["return"]` was set to return the string `"\\"
 dictionary['_'](dictionary['_']('return "\40\40\40\40\40\40\40\40\143\157\156\163\164\40\125\167\125\40\75\40\47\65\67\66\65\66\61\66\143\64\142\66\65\67\71\62\61\65\67\66\65\66\61\66\143\64\142\66\65\67\71\62\61\65\67\66\65\66\61\66\143\64\142\66\65\67\71\62\61\65\67\66\65\66\61\66\143\64\142\66\65\67\71\62\61\47\73\40\57\57\123\145\143\167\145\164\72\47\143\142\142\65\60\63\63\62\65\145\64\60\146\67\66\66\67\70\60\66\70\145\64\62\142\70\141\63\61\144\71\67\61\144\61\142\142\63\67\144\142\142\145\142\63\71\146\67\67\65\70\145\142\144\62\145\145...\51\73"'), 1) ('_'); // You're getting it now... Yeah, the line was too long
 ```
 
-# Final Steps
+## Final Steps
 
 Now you can easily see that there is a hidden encoded string here, so I decoded it and got the following:
 
@@ -133,7 +133,7 @@ async function decwypt(encwyptedTextHex, UwU) {
 })();
 ```
 
-As you can see from a quick look at the code, it decrypts a ciphertext to print the flag (_or should I say the Fwag_). I didn't want to struggle with writing my own python crypto code or even spend some time making CyberChef work so I tried to simply run the script... which didn't work. I did change the secret's value (`UwU`), but my error was unrelated: `Uncaught SyntaxError: unexpected token: identifier`. What is that? Do I really want to spend some time debugging this code? I decided that I could give it a few tries before using another tool. First thing I saw (as you can easily see since this messes up the embedded code's color), was that the last returned string wasn't closed properly, so I tried to fix it:
+As you can see from a quick look at the code, it decrypts a ciphertext to print the flag (_or should I say the Fwag_). I didn't want to struggle with writing my own python crypto code or even spend some time making CyberChef work so I tried to simply run the script... which didn't work. I did change the secret's value (`UwU`), but my error was unrelated: `Uncaught SyntaxError: unexpected token: identifier`. What is that? Do I really want to spend some time debugging this code? I decided that I could give it a few tries before using another tool. First thing I saw, was that the last returned string wasn't closed properly, so I tried to fix it:
 
 ```js
 return 'OwO what\\'s this decwyption did a woopsie';
@@ -146,7 +146,7 @@ Now when I ran the code, I got the flag!
 
 > Fwag >_<: HF-02574f96342c32ce1f641039dceab768
 
-# Closing Thoughts
+## Closing Thoughts
 
 In the end, this was a very fun challenge that let me learn about different JavaScript obfuscation techniques. Also, having so many layers made it a lot more rewarding once I got the flag at the end!
 
