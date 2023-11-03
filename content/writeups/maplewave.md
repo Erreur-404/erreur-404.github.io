@@ -67,7 +67,7 @@ Back to the program in Ghidra, after a bit of work to try and make sense of what
 ### Try a dynamic analysis with gdb
 That's where we decided to use gdb to dynamically analyze the program and, hopefully, retrieve the value of the parameters that are passed to _pa_simple_new()_. Since the program was compiled with PIE, the addresses were not the same as the ones we saw on Ghidra. To overcome this obstacle, we contacted a teammate, which gave us knowledge of the _info proc mappings_ command for gdb. This useful trick displayed the address range that gdb uses for the program being debugged.
 
-![Console opened with info proc mappings command typed in gdb, showing the starting adress of the maplewave program.](https://lh3.googleusercontent.com/k45ZFYCkTw3it7DRbvYY3ezXkvXnf3DxDTk9fx210rbOYUaMFjRsyzh9PJ0EmPVcVy2tTDbhLiPrHK5Xz-1e0ZRIv0Mdkc-59u0kc4XN2tVOVlMc_99kduPiaU40DWDnFtcFQp0jyigvz6wPygJseb4)
+![Console opened with info proc mappings command typed in gdb, showing the starting adress of the maplewave program.](/images/maplewave/maplewave_1.png)
 
 _The maplewave executable process and the associated start address_
 
@@ -80,13 +80,13 @@ Having found that information, the problem was solved easily; all we had to do w
 ### Back to finding pa_simple_new() parameter values
 Now what did we find at this address? The answer is: a structure. This means that we needed to understand the offsets of the struct and what they refer to if we wanted to make sense of it.
 
-![Showcasing the sample_type data structure with values for all addresses in Ghidra](https://lh3.googleusercontent.com/a0ENJ1FRsX6GS4mBe3Ipl0QlAtBOTpW-xmU6qA4VgMD5noiOLAGXNAiW7e0eBSe3lcW1a1E4P2hwTcsciFyqCNiEgwqKQ7G_Jex3cwzntXczB3Q_AQ1wkcagdpCyk5NRkt4fWZBgV3cFXfK1IHYuMXo)
+![Showcasing the sample_type data structure with values for all addresses in Ghidra](/images/maplewave/maplewave_2.png)
 
 _Data structure **sample_type** in Ghidra_
 
 [This page](https://www.freedesktop.org/software/pulseaudio/doxygen/sample_8h_source.html) gives access to the source code of the file that defines the _pa_simple_spec_ struct, which is the type of the argument we are interested in \[4\]. With this knowledge, we were able to find the number of channels and the rate that were used when recording the audio. So let’s try it!
 
-![Command-line interface showing the corresponding paplay command : paplay --raw flag0.maplewave --channels=1 --rate=16000](https://lh3.googleusercontent.com/Q-uZcSRHzKNqk1l7yn_8dYa46Xb8Y_s4zcne07ViUHH5LSSfBCBveoZaTVgzqCzzRRntm5F4Dizu1tytx9lYyeblnVwFOQaVOoMHuEm_IgCG-CdsaqoGcQfN4mW1Vphjb8X7kxZtdPrMXjdf_wk0VOs)
+![Command-line interface showing the corresponding paplay command : paplay --raw flag0.maplewave --channels=1 --rate=16000](/images/maplewave/maplewave_3.png)
 
 _The paplay command executed with the retrieved parameters from the stack_
 
