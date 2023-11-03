@@ -65,7 +65,7 @@ This step wants us to find a level-4 pointer. First, let's find the address of t
 Now let's find which memory location refers to this address. Without closing the instruction's window (make sure that you'll remember the order of appearance of the windows), make a new scan with this value and find another (dynamic) address. In my case, I get 0x01546100. If we _find out what accesses this address_ and change the value, we get two instructions. We will prefer the first one (`cmp qword ptr [rsi], 00`) because it didn't modify `rsi`'s value. We now extract the new address and repeat the process until we get the static address (the one in green). Since we didn't close the windows in the process, we can now add the pointer to the list along with the four offsets. This is what you should get:
 
 Figure 1. Solution to step 8
-![Figure 1. Solution to step 8](/cheat_engine_tutorial/cheat_engine_tutorial_solution_1.png)
+![Figure 1. Solution to step 8](/images/cheat_engine_tutorial/cheat_engine_tutorial_solution_1.png)
 
 To complete this section, change the value of the pointer to 5000, check the box to prevent the value from changing, and hit _change pointer_. You should have access to the _next_ button after 3 seconds.
 
@@ -73,7 +73,7 @@ To complete this section, change the value of the pointer to 5000, check the box
 This one sums up most if not all of the techniques that were taught in the previous challenges. To solve it, I started by listing every player's health address, as shown on figure 2 and then find the pointer for Dave to see how it's built. Using the same techniques as before (find what writes to the address and extract the pointer), I found that Dave was located at 0x06560500. When you browse the corresponding memory section, you find that the string "Dave" hangs there, which is great for us if we want to prevent him and Eric from being hit!
 
 Figure 2. Players health
-![Figure 2. Players health](/cheat_engine_tutorial/cheat_engine_tutorial_solution_2.png)
+![Figure 2. Players health](/images/cheat_engine_tutorial/cheat_engine_tutorial_solution_2.png)
 
 Now we can find the address where the health is subtracted and inject code to prevent it from happening to our team members. The address is easily found using _find out what accesses this address_ on any player. The instruction that we get is `movss [rbx+08], xmm0`, so we can execute it only for non-team members using code injection (Reminder: the code injection window can be reached using Ctrl+A followed by Ctrl+I). Here is the code to inject:
 
