@@ -2,7 +2,7 @@
 title: "Cheat Engine Tutorial Solution"
 date: 2023-08-20T21:52:26-04:00
 author: "Erreur 404"
-cover: "" # Example: "/cheat_engine_tutorial_solution_2.png"
+cover: "/images/cheat_engine_tutorial/cheat_engine_tutorial_solution_1.png"
 description: "My first experiment with GamePwn, along with its solutions"
 showFullContent: false
 readingTime: false

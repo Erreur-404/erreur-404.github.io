@@ -2,7 +2,7 @@
 title: "Javascwipt Fwamework - Hackfest 2023"
 date: 2023-11-03T15:30:28-04:00
 author: "Erreur 404"
-cover: ""
+cover: "/images/javascwipt_fwamework/javascwipt_fwamework_5.png"
 description: "A Reverse Engineering challenge involving multiple layers of JavaScript Obusfaction, presented at Hackfest 2023"
 showFullContent: false
 readingTime: false
